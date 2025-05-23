@@ -23,8 +23,8 @@ void Train::addCar(bool light) {
 
 int Train::getLength() {
   if (!first) return 0;
-const Car* current = first;
-current->light = true;  // Шаг 1
+Car* current = first;
+current->light = true;
 countOp++;
 int length = 1;
 while (true) {
