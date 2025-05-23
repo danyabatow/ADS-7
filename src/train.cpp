@@ -8,7 +8,6 @@ void Train::addCar(bool light) {
   newCar->light = light;
   newCar->next = nullptr;
   newCar->prev = nullptr;
-
   if (!first) {
     newCar->next = newCar;
     newCar->prev = newCar;
@@ -20,13 +19,14 @@ void Train::addCar(bool light) {
     newCar->next = first;
     first->prev = newCar;
   }
+  countOp++;
 }
 
 int Train::getLength() {
   if (!first) return 0;
   countOp = 0;
   int length = 1;
-  Car* current = first;
+  const Car* current = first;
   while (current->next != first) {
     current = current->next;
     ++length;
