@@ -19,20 +19,33 @@ void Train::addCar(bool light) {
     newCar->next = first;
     first->prev = newCar;
   }
-  countOp++;
 }
 
 int Train::getLength() {
   if (!first) return 0;
-  countOp = 0;
-  int length = 1;
-  const Car* current = first;
-  while (current->next != first) {
-    current = current->next;
-    ++length;
-    ++countOp;
+const Car* current = first;
+current->light = true;  // Шаг 1
+countOp++;
+int length = 1;
+while (true) {
+  current = current->next;
+  countOp++;
+  if (current->light) {
+    current->light = false;
+    countOp++;
+    int stepsBack = 0;
+    while (stepsBack < length) {
+      current = current->prev;
+      countOp++;
+      stepsBack++;
+    }
+    if (!current->light) {
+      return length;
+    } else {
+      length++;
+    }
   }
-  return length;
+}
 }
 
 int Train::getOpCount() { return countOp; }
